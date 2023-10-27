@@ -1,18 +1,17 @@
 import URI_API from "./const.js";
 
+const rightOrWrong = async (data, method) => {
+  if (data.status < 200 || data.status >= 300) {
+    console.warn(`fetch ${method} error: ${data.status}: ${data.statusText}`);
+  } else console.log(`fetch ${method} ok: `, await data.json());
+};
 export default class FetchClass {
   getTask(taskId) {
-    fetch(`${URI_API}/${taskId}`)
-      .then((data) => data.json())
-      .then((data) => console.log("fetch getTask ok", data))
-      .catch((err) => console.warn("fetch getTask error", err));
+    fetch(`${URI_API}/${taskId}`).then((data) => rightOrWrong(data, "getTask"));
   }
 
   getAllTasks() {
-    fetch(URI_API)
-      .then((data) => data.json())
-      .then((data) => console.log("fetch getAllTasks ok", data))
-      .catch((err) => console.warn("fetch getAllTasks error", err));
+    fetch(URI_API).then((data) => rightOrWrong(data, "getAllTasks"));
   }
 
   postTask(postData) {
@@ -22,10 +21,7 @@ export default class FetchClass {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(postData),
-    })
-      .then((data) => data.json())
-      .then((data) => console.log("fetch postTask ok", data))
-      .catch((err) => console.warn("fetch postTask error", err));
+    }).then((data) => rightOrWrong(data, "postTask"));
   }
 
   putTask(taskId, putData) {
@@ -35,10 +31,7 @@ export default class FetchClass {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(putData),
-    })
-      .then((data) => data.json())
-      .then((data) => console.log("fetch putTask ok", data))
-      .catch((err) => console.warn("fetch putTask error", err));
+    }).then((data) => rightOrWrong(data, "putTask"));
   }
 
   patchTask(taskId, patchData) {
@@ -48,10 +41,7 @@ export default class FetchClass {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(patchData),
-    })
-      .then((data) => data.json())
-      .then((data) => console.log("fetch patchTask ok", data))
-      .catch((err) => console.warn("fetch patchTask error", err));
+    }).then((data) => rightOrWrong(data, "patchTask"));
   }
 
   deleteTask(taskId) {
@@ -60,9 +50,6 @@ export default class FetchClass {
       headers: {
         "Content-Type": "application/json",
       },
-    })
-      .then((data) => data.json())
-      .then((data) => console.log("fetch deleteTask ok", data))
-      .catch((err) => console.warn("fetch deleteTask error", err));
+    }).then((data) => rightOrWrong(data, "deleteTask"));
   }
 }

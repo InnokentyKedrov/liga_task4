@@ -1,4 +1,3 @@
-// const URI_API = "https://intership-liga.ru/tasks";
-const URI_API = "https://jsonplaceholder.typicode.com/todos";
+const URI_API = "http://37.220.80.108/tasks";
 
 export default URI_API;

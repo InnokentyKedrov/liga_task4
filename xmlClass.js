@@ -1,5 +1,10 @@
 import URI_API from "./const.js";
 
+const rightOrWrong = (data, method) => {
+  if (data.status < 200 || data.status >= 300) {
+    console.warn(`XMLHttpRequest ${method} error: ${data.status}: ${data.statusText}`);
+  } else console.log(`XMLHttpRequest ${method} ok: `, data.response);
+};
 export default class XMLClass {
   getTask(taskId) {
     const xhr = new XMLHttpRequest();
@@ -7,12 +12,7 @@ export default class XMLClass {
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.send();
     xhr.responseType = "json";
-    xhr.onload = function () {
-      console.log("XMLHttpRequest getTask ok", xhr.response);
-    };
-    xhr.onerror = function () {
-      console.warn("XMLHttpRequest getTask error!", xhr.status);
-    };
+    xhr.onloadend = () => rightOrWrong(xhr, "getTask");
   }
 
   getAllTasks() {
@@ -21,12 +21,7 @@ export default class XMLClass {
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.send();
     xhr.responseType = "json";
-    xhr.onload = function () {
-      console.log("XMLHttpRequest getAllTask ok", xhr.response);
-    };
-    xhr.onerror = function () {
-      console.warn("XMLHttpRequest getAllTask error!", xhr.status);
-    };
+    xhr.onloadend = () => rightOrWrong(xhr, "getAllTasks");
   }
 
   postTask(postData) {
@@ -35,12 +30,7 @@ export default class XMLClass {
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.send(JSON.stringify(postData));
     xhr.responseType = "json";
-    xhr.onload = function () {
-      console.log("XMLHttpRequest postTask ok", xhr.response);
-    };
-    xhr.onerror = function () {
-      console.warn("XMLHttpRequest postTask error!", xhr.status);
-    };
+    xhr.onloadend = () => rightOrWrong(xhr, "postTask");
   }
 
   putTask(taskId, putData) {
@@ -49,12 +39,7 @@ export default class XMLClass {
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.send(JSON.stringify(putData));
     xhr.responseType = "json";
-    xhr.onload = function () {
-      console.log("XMLHttpRequest putTask ok", xhr.response);
-    };
-    xhr.onerror = function () {
-      console.warn("XMLHttpRequest putTask error!", xhr.status);
-    };
+    xhr.onloadend = () => rightOrWrong(xhr, "putTask");
   }
 
   patchTask(taskId, patchData) {
@@ -63,12 +48,7 @@ export default class XMLClass {
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.send(JSON.stringify(patchData));
     xhr.responseType = "json";
-    xhr.onload = function () {
-      console.log("XMLHttpRequest patchTask ok", xhr.response);
-    };
-    xhr.onerror = function () {
-      console.warn("XMLHttpRequest patchTask error!", xhr.status);
-    };
+    xhr.onloadend = () => rightOrWrong(xhr, "patchTask");
   }
 
   deleteTask(taskId) {
@@ -77,11 +57,6 @@ export default class XMLClass {
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.send();
     xhr.responseType = "json";
-    xhr.onload = function () {
-      console.log("XMLHttpRequest deleteTask ok", xhr.response);
-    };
-    xhr.onerror = function () {
-      console.warn("XMLHttpRequest deleteTask error!", xhr.status);
-    };
+    xhr.onloadend = () => rightOrWrong(xhr, "deleteTask");
   }
 }
