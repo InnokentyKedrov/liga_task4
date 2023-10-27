@@ -37,8 +37,8 @@ class Facade {
 
   getAllTasks() {
     return this.typeRequest === "fetch"
-      ? new FetchClass().getAllTask()
-      : new XMLClass().getAllTask();
+      ? new FetchClass().getAllTasks()
+      : new XMLClass().getAllTasks();
   }
 
   postTask(postData) {
